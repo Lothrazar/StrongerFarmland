@@ -4,8 +4,10 @@ import com.lothrazar.strongfarmland.setup.ConfigHandler;
 import com.lothrazar.strongfarmland.setup.IProxy;
 import com.lothrazar.strongfarmland.setup.ServerProxy;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,68 +38,36 @@ public class StrongFarmland {
   private static final Logger LOGGER = LogManager.getLogger();
 
   public StrongFarmland() {
-    // Register the setup method for modloading
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-    //only for server starting
     MinecraftForge.EVENT_BUS.register(this);
     ConfigHandler.loadConfig(ConfigHandler.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(MODID + ".toml"));
   }
 
-  private void setup(final FMLCommonSetupEvent event) {
-    // some preinit code
-    LOGGER.info("HELLO FROM PREINIT");
-    TileEntity bob;
-    //    LivingEvent.LivingUpdateEvent x;
-  }
-
-  @SubscribeEvent
-  public void onupdate(LivingEvent.LivingUpdateEvent event) {
-    //
-    if (event.getEntity() instanceof WitherSkeletonEntity) {
-    }
-  }
-
-  // You can use SubscribeEvent and let the Event Bus discover methods to call
   @SubscribeEvent
   public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
-    // do something when the server starts
-    if (event.getEntity() instanceof PlayerEntity) {
-      event.setCanceled(true);
-      LOGGER.info("HPlayerEntity");
-    }
-    if (event.getEntity() instanceof TameableEntity) {
-      TameableEntity tamed = (TameableEntity) event.getEntity();
-      if (tamed.isTamed()) {
+    // do something when the server start
+    //    event.getPos()
+    BlockState old = event.getWorld().getBlockState(event.getPos());
+    if (old.has(FarmlandBlock.MOISTURE) &&
+        old.get(FarmlandBlock.MOISTURE) > 0) {
+      // normally 0 dry, 7 wet
+      if (event.getEntity() instanceof PlayerEntity) {
         event.setCanceled(true);
-        LOGGER.info("isTamed");
       }
-    }
-    if (event.getEntity() instanceof AbstractHorseEntity) {
-      AbstractHorseEntity tamed = (AbstractHorseEntity) event.getEntity();
-      if (tamed.isTame()) {
+      if (event.getEntity() instanceof TameableEntity) {
+        TameableEntity tamed = (TameableEntity) event.getEntity();
+        if (tamed.isTamed()) {
+          event.setCanceled(true);
+        }
+      }
+      if (event.getEntity() instanceof AbstractHorseEntity) {
+        AbstractHorseEntity tamed = (AbstractHorseEntity) event.getEntity();
+        if (tamed.isTame()) {
+          event.setCanceled(true);
+        }
+      }
+      if (event.getEntity() instanceof IronGolemEntity) {
         event.setCanceled(true);
-        LOGGER.info("horse ");
       }
-    }
- 
-  }
-
-  // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-  // Event bus for receiving Registry Events)
-  @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-  public static class RegistryEvents {
-
-    @SubscribeEvent
-    public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
-      // register a new block here
-      LOGGER.info("HELLO from Register Block");
-      //      event.getRegistry().register(new BlockRequest());
-    }
-
-    @SubscribeEvent
-    public static void onItemsRegistry(RegistryEvent.Register<Item> event) {
-      //      Item.Properties properties = new Item.Properties().group(SsnRegistry.itemGroup);
-      //      event.getRegistry().register(new BlockItem(SsnRegistry.master, properties).setRegistryName("master"));
     }
   }
 

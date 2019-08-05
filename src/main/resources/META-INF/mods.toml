@@ -29,7 +29,7 @@ credits="Thanks for this example mod goes to Java" #optional
 authors="Lothrazar" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Farmland is much much stronger when wet, breaks normally when dry.
+Players, Golems, Tamed animals and horses do not break farmland.  Only affects moist farmland, dry stuff gets trampled.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.strongfarmland]] #optional
