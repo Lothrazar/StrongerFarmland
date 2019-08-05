@@ -6,6 +6,8 @@ import com.lothrazar.strongfarmland.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
@@ -59,19 +61,25 @@ public class StrongFarmland {
   @SubscribeEvent
   public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     // do something when the server starts
-//    if (event.getEntity() instanceof PlayerEntity) {
-//      event.setCanceled(true);
-//      LOGGER.info("HELLO from server starting");
-//    }
-
-    LOGGER.info("FarmlandTrampleEvent" + event.getState().getBlock() );
-    if (event.getState().has(FarmlandBlock.MOISTURE )) {
-      Integer moist = event.getState().get(FarmlandBlock.MOISTURE);
-      if (moist > 0.2) {
+    if (event.getEntity() instanceof PlayerEntity) {
+      event.setCanceled(true);
+      LOGGER.info("HPlayerEntity");
+    }
+    if (event.getEntity() instanceof TameableEntity) {
+      TameableEntity tamed = (TameableEntity) event.getEntity();
+      if (tamed.isTamed()) {
         event.setCanceled(true);
-        LOGGER.info("moistg" + moist);
+        LOGGER.info("isTamed");
       }
     }
+    if (event.getEntity() instanceof AbstractHorseEntity) {
+      AbstractHorseEntity tamed = (AbstractHorseEntity) event.getEntity();
+      if (tamed.isTame()) {
+        event.setCanceled(true);
+        LOGGER.info("horse ");
+      }
+    }
+ 
   }
 
   // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
