@@ -57,13 +57,15 @@ public class StrongFarmland {
 
   // You can use SubscribeEvent and let the Event Bus discover methods to call
   @SubscribeEvent
-  public void onServerStarting(BlockEvent.FarmlandTrampleEvent event) {
+  public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     // do something when the server starts
 //    if (event.getEntity() instanceof PlayerEntity) {
 //      event.setCanceled(true);
 //      LOGGER.info("HELLO from server starting");
 //    }
-    if (event.getState().getBlock() instanceof FarmlandBlock) {
+
+    LOGGER.info("FarmlandTrampleEvent" + event.getState().getBlock() );
+    if (event.getState().has(FarmlandBlock.MOISTURE )) {
       Integer moist = event.getState().get(FarmlandBlock.MOISTURE);
       if (moist > 0.2) {
         event.setCanceled(true);
