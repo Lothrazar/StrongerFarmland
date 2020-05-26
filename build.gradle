@@ -11,8 +11,8 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 version = "${mc_version}-${mod_version}"
-group = 'com.lothrazar.nolavabuild' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'nolavabuild'
+group = 'com.lothrazar.strongfarmland' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'strongfarmland'
 
 
 
