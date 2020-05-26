@@ -1,2 +1,4 @@
+#!/bin/bash
 
-./gradlew genEclipseRuns
+
+bash gradlew setupDecompWorkspace eclipse --refresh-dependencies

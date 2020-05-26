@@ -1,0 +1,21 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "strongfarmland",
+    "name": "Stronger Farmland",
+    "description": "Players, Golems, Tamed animals and horses do not break farmland.  Only affects moist farmland, dry stuff gets trampled.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/stronger-farmland",
+    "updateUrl": "",
+    "authorList": [ "Lothrazar" ],
+    "credits": "The Forge and FML team",
+    "logoFile": "",
+    "screenshots": [  ],
+    "parent": "",
+    "requiredMods": [ "Forge" ],
+    "dependencies": [  ],
+    "dependants": [  ],
+    "useDependencyInformation": false
+  }]
+}

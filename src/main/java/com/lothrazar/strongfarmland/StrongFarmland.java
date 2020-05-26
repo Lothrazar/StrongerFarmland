@@ -1,72 +1,53 @@
 package com.lothrazar.strongfarmland;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import com.lothrazar.strongfarmland.setup.ClientProxy;
-import com.lothrazar.strongfarmland.setup.ConfigHandler;
-import com.lothrazar.strongfarmland.setup.IProxy;
-import com.lothrazar.strongfarmland.setup.ServerProxy;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FarmlandBlock;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.BlockFarmland;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.AbstractHorse;
+import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod("strongfarmland")
+@Mod(modid = StrongFarmland.MODID, certificateFingerprint = "@FINGERPRINT@")
 public class StrongFarmland {
 
-  private String certificateFingerprint = "@FINGERPRINT@";
-  public static final IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
   public static final String MODID = "strongfarmland";
-  private static final Logger LOGGER = LogManager.getLogger();
 
-  public StrongFarmland() {
+  @EventHandler
+  public void onPreInit(FMLPreInitializationEvent event) {
     MinecraftForge.EVENT_BUS.register(this);
-    ConfigHandler.loadConfig(ConfigHandler.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve(MODID + ".toml"));
   }
 
   @SubscribeEvent
   public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     // do something when the server start
-    BlockState old = event.getWorld().getBlockState(event.getPos());
-    if (old.has(FarmlandBlock.MOISTURE) &&
-        old.get(FarmlandBlock.MOISTURE) > 0) {
+    IBlockState old = event.getWorld().getBlockState(event.getPos());
+    if (old.getProperties().containsKey(BlockFarmland.MOISTURE) &&
+        old.getValue(BlockFarmland.MOISTURE) > 0) {
       // normally 0 dry, 7 wet
-      if (event.getEntity() instanceof PlayerEntity) {
+      if (event.getEntity() instanceof EntityPlayer) {
         event.setCanceled(true);
       }
-      if (event.getEntity() instanceof TameableEntity) {
-        TameableEntity tamed = (TameableEntity) event.getEntity();
+      if (event.getEntity() instanceof EntityTameable) {
+        EntityTameable tamed = (EntityTameable) event.getEntity();
         if (tamed.isTamed()) {
           event.setCanceled(true);
         }
       }
-      if (event.getEntity() instanceof AbstractHorseEntity) {
-        AbstractHorseEntity tamed = (AbstractHorseEntity) event.getEntity();
+      if (event.getEntity() instanceof AbstractHorse) {
+        AbstractHorse tamed = (AbstractHorse) event.getEntity();
         if (tamed.isTame()) {
           event.setCanceled(true);
         }
       }
-      if (event.getEntity() instanceof IronGolemEntity) {
+      if (event.getEntity() instanceof EntityIronGolem) {
         event.setCanceled(true);
       }
     }
-  }
-
-  @SubscribeEvent
-  public static void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-    // https://tutorials.darkhax.net/tutorials/jar_signing/
-    String source = (event.getSource() == null) ? "" : event.getSource().getName() + " ";
-    String msg = MODID + "Invalid fingerprint detected! The file " + source + "may have been tampered with. This version will NOT be supported by the author!";
-    //System.out.println(msg);
   }
 }
