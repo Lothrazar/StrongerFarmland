@@ -1,7 +1,5 @@
 package com.lothrazar.strongfarmland;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.lothrazar.strongfarmland.setup.ClientProxy;
 import com.lothrazar.strongfarmland.setup.ConfigHandler;
 import com.lothrazar.strongfarmland.setup.IProxy;
@@ -24,10 +22,9 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod("strongfarmland")
 public class StrongFarmland {
 
-  private String certificateFingerprint = "@FINGERPRINT@";
   public static final IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
   public static final String MODID = "strongfarmland";
-  private static final Logger LOGGER = LogManager.getLogger();
+  //  private static final Logger LOGGER = LogManager.getLogger();
 
   public StrongFarmland() {
     MinecraftForge.EVENT_BUS.register(this);
@@ -41,22 +38,23 @@ public class StrongFarmland {
     if (old.has(FarmlandBlock.MOISTURE) &&
         old.get(FarmlandBlock.MOISTURE) > 0) {
       // normally 0 dry, 7 wet
-      if (event.getEntity() instanceof PlayerEntity) {
+      if (event.getEntity() instanceof PlayerEntity && !ConfigHandler.PLAYER.get()) {
         event.setCanceled(true);
       }
       if (event.getEntity() instanceof TameableEntity) {
         TameableEntity tamed = (TameableEntity) event.getEntity();
-        if (tamed.isTamed()) {
+        if (tamed.isTamed() && !ConfigHandler.TAMEABLE.get()) {
           event.setCanceled(true);
         }
       }
       if (event.getEntity() instanceof AbstractHorseEntity) {
         AbstractHorseEntity tamed = (AbstractHorseEntity) event.getEntity();
-        if (tamed.isTame()) {
+        if (tamed.isTame() && !ConfigHandler.HORSE.get()) {
           event.setCanceled(true);
         }
       }
-      if (event.getEntity() instanceof IronGolemEntity) {
+      if (event.getEntity() instanceof IronGolemEntity
+          && !ConfigHandler.GOLEM.get()) {
         event.setCanceled(true);
       }
     }
@@ -67,6 +65,6 @@ public class StrongFarmland {
     // https://tutorials.darkhax.net/tutorials/jar_signing/
     String source = (event.getSource() == null) ? "" : event.getSource().getName() + " ";
     String msg = MODID + "Invalid fingerprint detected! The file " + source + "may have been tampered with. This version will NOT be supported by the author!";
-    //System.out.println(msg);
+    System.out.println(msg);
   }
 }
