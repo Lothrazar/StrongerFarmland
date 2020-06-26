@@ -1,11 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/stronger-farmland",
   "promos": {
-    "1.15.2-latest": "1.1.0",
-    "1.15.2-recommended": "1.1.0"
+    "1.16.2-latest": "1.1.0",
+    "1.16.2-recommended": "1.1.0"
   },
-  "1.15.2": {
-    "1.0.0": "Release ",
-    "1.1.0":"Added config file to customize and toggle mob categories"
+  "1.16.2": {
+    "1.0.0": "Release "
   }
 }
