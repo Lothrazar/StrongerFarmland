@@ -1,9 +1,5 @@
 package com.lothrazar.strongfarmland;
 
-import com.lothrazar.strongfarmland.setup.ClientProxy;
-import com.lothrazar.strongfarmland.setup.ConfigHandler;
-import com.lothrazar.strongfarmland.setup.IProxy;
-import com.lothrazar.strongfarmland.setup.ServerProxy;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FarmlandBlock;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -13,16 +9,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("strongfarmland")
+@Mod(StrongFarmland.MODID)
 public class StrongFarmland {
 
-  public static final IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
   public static final String MODID = "strongfarmland";
   //  private static final Logger LOGGER = LogManager.getLogger();
 
@@ -35,7 +29,7 @@ public class StrongFarmland {
   public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     // do something when the server start
     BlockState old = event.getWorld().getBlockState(event.getPos());
-    if (old.has(FarmlandBlock.MOISTURE) &&
+    if (old.func_235901_b_(FarmlandBlock.MOISTURE) &&
         old.get(FarmlandBlock.MOISTURE) > 0) {
       // normally 0 dry, 7 wet
       if (event.getEntity() instanceof PlayerEntity && !ConfigHandler.PLAYER.get()) {

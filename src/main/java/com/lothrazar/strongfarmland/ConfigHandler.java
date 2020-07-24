@@ -1,9 +1,8 @@
-package com.lothrazar.strongfarmland.setup;
+package com.lothrazar.strongfarmland;
 
 import java.nio.file.Path;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import com.lothrazar.strongfarmland.StrongFarmland;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
