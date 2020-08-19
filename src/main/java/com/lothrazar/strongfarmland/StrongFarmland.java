@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(StrongFarmland.MODID)
 public class StrongFarmland {
 
@@ -29,7 +28,7 @@ public class StrongFarmland {
   public void onFarmlandTrampleEvent(BlockEvent.FarmlandTrampleEvent event) {
     // do something when the server start
     BlockState old = event.getWorld().getBlockState(event.getPos());
-    if (old.func_235901_b_(FarmlandBlock.MOISTURE) &&
+    if (old.hasProperty(FarmlandBlock.MOISTURE) &&
         old.get(FarmlandBlock.MOISTURE) > 0) {
       // normally 0 dry, 7 wet
       if (event.getEntity() instanceof PlayerEntity && !ConfigHandler.PLAYER.get()) {
