@@ -17,7 +17,6 @@ import net.minecraftforge.fml.loading.FMLPaths;
 public class StrongFarmland {
 
   public static final String MODID = "strongfarmland";
-  //  private static final Logger LOGGER = LogManager.getLogger();
 
   public StrongFarmland() {
     MinecraftForge.EVENT_BUS.register(this);
