@@ -1,14 +1,22 @@
 # StrongerFarmland
 
-A Forge mod for Minecraft Java
+A Minecraft mod built on the Forge API [https://files.minecraftforge.net/](https://files.minecraftforge.net)
 
-- Download a Forge MDK from [https://files.minecraftforge.net/](https://files.minecraftforge.net)
+Project page with releases: https://www.curseforge.com/minecraft/mc-mods/stronger-farmland
 
-- Clone this repository and add the files into the unzipped MDK folder
+[![](http://cf.way2muchnoise.eu/333875.svg)](https://www.curseforge.com/minecraft/mc-mods/stronger-farmland) 
+[![](http://cf.way2muchnoise.eu/versions/333875.svg)](https://www.curseforge.com/minecraft/mc-mods/stronger-farmland)
 
-- run ./setup.sh
+[![Twitter Badge](https://img.shields.io/badge/contact-twitter-blue.svg)](https://twitter.com/lothrazar)
+[![Discord](https://img.shields.io/discord/749302798797242449.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/uWZ3jf56fV)
+[![links](https://img.shields.io/badge/more-links-ff69b4.svg)](https://allmylinks.com/lothrazar)
+[![Support](https://img.shields.io/badge/Patreon-Support-orange.svg?logo=Patreon)](https://www.patreon.com/Lothrazar)
 
-- Open as a Gradle project in Eclipse (or your favorite Java IDE)
 
- [![](http://cf.way2muchnoise.eu/333875.svg)](https://www.curseforge.com/minecraft/mc-mods/stronger-farmland) 
- [![](http://cf.way2muchnoise.eu/versions/333875.svg)](https://www.curseforge.com/minecraft/mc-mods/stronger-farmland)
+
+# Servers
+
+Looking to host a Modded server? Get a discount with my promo code
+
+
+[![Nodecraft Server](https://nodecraft.com/assets/images/partners/loth/mashup.png)](https://nodecraft.com/r/loth)
