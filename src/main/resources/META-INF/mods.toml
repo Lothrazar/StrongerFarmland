@@ -19,7 +19,7 @@ version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Stronger Farmland" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
-updateJSONURL="https://raw.githubusercontent.com/Lothrazar/StrongerFarmland/trunk/1.18/update.json" #optional
+updateJSONURL="https://raw.githubusercontent.com/Lothrazar/StrongerFarmland/trunk/1.19/update.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://www.curseforge.com/minecraft/mc-mods/stronger-farmland/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
@@ -48,6 +48,6 @@ Players, Golems, Tamed animals and horses do not break farmland.  Only affects m
 [[dependencies.strongfarmland]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,)"
+    versionRange="[1.19,)"
     ordering="NONE"
     side="BOTH"
