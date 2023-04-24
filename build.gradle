@@ -6,17 +6,16 @@ plugins {
 
 
 import net.minecraftforge.gradle.common.tasks.SignJar
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 
 version = "${mc_version}-${mod_version}"
 group = 'com.lothrazar.strongfarmland' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'strongfarmland'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-
-    mappings channel: 'official', version: '1.19'
+    mappings channel: 'official', version: "${mc_version}"
 
     //makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
@@ -57,23 +56,6 @@ minecraft {
             }
         }
 
-        data {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'strongfarmland', '--all', '--output', file('src/generated/resources/')
-
-            mods {
-                strongfarmland {
-                    source sourceSets.main
-                }
-            }
-        }
     }
 }
 
@@ -84,12 +66,10 @@ dependencies {
 
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 	
+
+    implementation fg.deobf("blank:flib-${mc_version}:${flib_version}")
 	
-//  compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-//  runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-    // You may put jars on which you depend on in ./libs or you may define them like so..
-    // compile "some.group:artifact:version:classifier"
-    // compile "some.group:artifact:version"
+//	implementation fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
@@ -108,6 +88,9 @@ dependencies {
 }
 
 repositories {
+  flatDir {
+      dir 'libs'
+  }
   maven {
     // location of the maven that hosts JEI files
     name = "Progwml6 maven"
@@ -149,6 +132,10 @@ publishing {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
 task signJar(type: SignJar, dependsOn: jar) {
 
     // findProperty allows us to reference the property without it existing. 
@@ -162,14 +149,12 @@ task signJar(type: SignJar, dependsOn: jar) {
     outputFile = jar.archivePath
 }
 
-//build.dependsOn signJar
 
 task copyJar(type: Copy) {
     from jar
     into "${dist_folder}"
 }
 
-//build.finalizedBy copyJar
 
 task cleanJar {
   delete 'build/libs'
