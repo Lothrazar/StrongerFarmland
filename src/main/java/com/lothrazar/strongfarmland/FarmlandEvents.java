@@ -15,8 +15,7 @@ public class FarmlandEvents {
   public void onFarmlandTrampleEvent(FarmlandTrampleEvent event) {
     // do something when the server start
     BlockState old = event.getLevel().getBlockState(event.getPos());
-    if (old.hasProperty(FarmBlock.MOISTURE) &&
-        old.getValue(FarmBlock.MOISTURE) > 0) {
+    if (old.hasProperty(FarmBlock.MOISTURE) && old.getValue(FarmBlock.MOISTURE) > 0) {
       // normally 0 dry, 7 wet
       if (event.getEntity() instanceof Player && !ConfigFarmland.PLAYER.get()) {
         event.setCanceled(true);
