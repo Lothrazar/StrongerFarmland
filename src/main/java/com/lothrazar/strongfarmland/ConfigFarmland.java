@@ -1,18 +1,18 @@
 package com.lothrazar.strongfarmland;
 
-import com.lothrazar.library.config.ConfigTemplate;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
-public class ConfigFarmland extends ConfigTemplate {
+public class ConfigFarmland {
 
-  public static ForgeConfigSpec CONFIG;
-  public static BooleanValue PLAYER;
-  public static BooleanValue TAMEABLE;
-  public static BooleanValue HORSE;
-  public static BooleanValue GOLEM;
+  public static ModConfigSpec CONFIG;
+  public static ModConfigSpec.BooleanValue PLAYER;
+  public static ModConfigSpec.BooleanValue TAMEABLE;
+  public static ModConfigSpec.BooleanValue HORSE;
+  public static ModConfigSpec.BooleanValue GOLEM;
   static {
-    final ForgeConfigSpec.Builder BUILDER = builder();
+    final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     BUILDER.comment("If a farmland has moisture, the following entity types will be blocked from trampling it into dirt when the setting is false").push(StrongFarmland.MODID);
     PLAYER = BUILDER.comment("Do players trample farmland").define("player", false);
     TAMEABLE = BUILDER.comment("Do tamed animals (cats, dogs, etc) trample farmland").define("tameable", false);
@@ -22,7 +22,7 @@ public class ConfigFarmland extends ConfigTemplate {
     CONFIG = BUILDER.build();
   }
 
-  public ConfigFarmland() {
-    CONFIG.setConfig(setup(StrongFarmland.MODID));
+  public ConfigFarmland(ModContainer modContainer) {
+    modContainer.registerConfig(ModConfig.Type.COMMON, CONFIG);
   }
 }
