@@ -10,7 +10,7 @@ public class StrongFarmland {
 
   public static final String MODID = "strongfarmland";
 
-  public StrongFarmland(IEventBus modEventBus, ModContainer modContainer) {
+  public StrongFarmland(IEventBus bus, ModContainer modContainer) {
     new ConfigFarmland(modContainer);
     NeoForge.EVENT_BUS.register(new FarmlandEvents());
   }
